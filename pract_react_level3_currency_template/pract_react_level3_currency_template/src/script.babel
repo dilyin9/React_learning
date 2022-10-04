@@ -1,0 +1,37 @@
+//-------ЗАГОТОВКА КОДА-----------
+  
+class ExchangeRates extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      usd : 0,
+      euro : 0
+    }
+  }
+  
+  componentDidMount() {
+    fetch('https://api.exchangerate.host/latest?base=RUB&symbols=USD,EUR')
+    .then((response) => {return response.json()} )
+    .then((data) => {
+      this.setState ({
+        usd: 1 / data.rates.USD,
+        euro: 1 / data.rates.EUR
+      })
+    })
+  }
+  
+  render() {
+    const {usd, euro} = this.state
+    return (
+      <div>
+        <span>Курсы валют:</span>
+        <b> USD </b>
+        <span>{usd.toFixed(2)}</span>
+        <b> EUR </b>
+        <span>{euro.toFixed(2)}</span>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<ExchangeRates />, document.querySelector("#app"))

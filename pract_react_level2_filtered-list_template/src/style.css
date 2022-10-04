@@ -1,0 +1,26 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+}
+
+#app {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.filtered-list__input {
+  padding: 4px 8px;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+.filtered-list__list {
+  margin-top: 8px;
+}
+
+.filtered-list__item {
+  margin-top: 4px;
+}

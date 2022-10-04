@@ -1,0 +1,21 @@
+//-------ЗАГОТОВКА КОДА-----------
+  
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {inputEmail: ""}
+  }
+  
+  render() {
+    return (
+    	<React.Fragment>
+        <label htmlFor='email'>Введите email:</label>
+        <input type='email' id='email' onChange={() => {this.setState({inputEmail: event.target.value})}}></input>
+        <button onClick={() => {alert(this.state.inputEmail)}}>Отправить</button>
+      </React.Fragment>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#app"))
+

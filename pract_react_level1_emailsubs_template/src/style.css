@@ -1,0 +1,44 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+}
+
+#app {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+label {
+  margin-right: 8px;
+}
+
+input {
+  margin: 8px;
+  padding: 3px 5px;
+  border-width: 1px;
+  font-size: 12px;
+  line-height: 16px;
+  border-color: rgba(50, 50, 50, 0.30);
+  border-radius: 3px;
+  border-style: solid;
+}
+
+input:valid {
+  border-color: #65A362;
+}
+
+input:invalid {
+  border-color: #FF4F46;
+}
+
+button {
+  color: #ffffff;
+  background: rgb(22, 125, 255);
+  padding: 6px 16px;
+  margin: 8px;
+  border-width: 0px;
+  border-radius: 3px;
+}

@@ -1,0 +1,28 @@
+//-------ЗАГОТОВКА КОДА-----------
+
+const items = ['apple', 'pineapple', 'orange', 'apricot', 'lime', 'lemon', 'plum']  
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      <div className="filtered-list">
+        <input className="filtered-list__input"></input>
+        <ul className="filtered-list__list">
+          {this.props.items.map( (item, ind) => (
+            <li key={ind} className="filtered-list__item">{item}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+}
+
+App.propTypes = {
+	items: PropTypes.arrayOf(PropTypes.string)
+}
+
+ReactDOM.render(<App items={items} />, document.querySelector("#app"))

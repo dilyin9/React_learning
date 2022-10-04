@@ -1,0 +1,24 @@
+//-------ЗАГОТОВКА КОДА-----------
+  
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props)
+  } 
+  
+  render() {
+    return (
+      <button>
+        ❤️ 0
+      </button>
+    )
+  }
+}
+
+LikeButton.propTypes = {
+	initialLikeNumber: PropTypes.number
+}
+
+ReactDOM.render(
+	<LikeButton initialLikeNumber={7} />,
+  document.querySelector("#app")
+)
