@@ -1,0 +1,31 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+  color: #292C2F;
+}
+
+#app {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.star {
+  font-size: 42px;
+  color: #FBB202;
+  margin: 4px;
+}
+
+.star:after {
+  content: '☆';
+}
+
+.checked:after {
+  content: '★';
+}
+
+.title {
+  margin-top: 8px;
+}

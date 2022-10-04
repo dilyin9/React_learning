@@ -1,0 +1,33 @@
+/*ЗАГОТОВКА КОДА*/
+  
+class StaredRating extends React.Component {
+	render() {
+    return(
+  	 <div className="rating">
+     {[...Array(5)].map((star,index) => {        
+        return (         
+          <div className={`star ${index < this.props.rate ? "checked": ""}`}></div>        
+        );
+      })}
+                  </div>
+      );
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return <React.Fragment>
+      <h3 class="title">Зеленая миля</h3>
+      <StaredRating rate={4} />
+      <h3 class="title">Стражи Галактики</h3>
+      <StaredRating rate={3} />
+    </React.Fragment>
+  }
+}
+
+StaredRating.propTypes = {
+	rate: PropTypes.number
+}
+
+ReactDOM.render(<App />, document.querySelector("#app"))
+
