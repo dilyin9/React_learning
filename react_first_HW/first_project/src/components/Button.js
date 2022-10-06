@@ -1,9 +1,9 @@
 import React from "react";
 
-const Button = () => {
+const Button = ({handleClick}) => {
   return (
     <>
-            <button>Кнопка</button>
+            <button onClick={() => handleClick()} style={{margin:"20px"}}>Выполнено</button>
     </>
 
 

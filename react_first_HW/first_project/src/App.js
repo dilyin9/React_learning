@@ -1,6 +1,7 @@
 import './App.css';
 import List from './components/List';
 import Button from './components/Button';
+import React, { useState } from "react";
 
 const do_list = [
   {taskName: "Согласовать презу", state: false, id:1},
@@ -10,14 +11,19 @@ const do_list = [
   {taskName: "Согласовать презу", state: false, id:5},
   {taskName: "Согласовать презу", state: false, id:6}
 ]
-let done_list = [];
+
 
 function App() {
+  const [count, setCount] = useState(0)
+
+  const showMessage = ()=> {
+    alert(count)
+  }
   return (
     <div>
-    <h2>ToDoList</h2>
+    <h2 style={{align_self:"center"}}>ToDoList</h2>
     <List prop={do_list}/>
-    <Button />
+    <Button handleClick={showMessage}/>
     </div>
   )
 }
