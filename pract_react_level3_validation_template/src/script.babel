@@ -1,0 +1,42 @@
+//-------ЗАГОТОВКА КОДА-----------
+  
+class Input extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    	value: '',
+      firstTouch: true
+    }
+  }
+  
+  render() {
+  	const {placeholder, validate, errorMessage} = this.props
+    const {firstTouch} = this.state
+    const isInvalid = !firstTouch && validate(this.state.value)
+    const cl = classNames('input', isInvalid && 'input__error')
+    return (
+      <div>
+        <input
+          type= "text"
+          className={cl}
+          placeholder={placeholder}
+          value={this.state.value}
+          onBlur={(e) => this.setState({firstTouch: false})}
+          onChange={(e) => this.setState({value: e.target.value})}
+        />
+        <div className="error">
+          {isInvalid && errorMessage(this.state.value)}
+        </div>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(
+	<Input
+    placeholder={"Username"}
+    validate={value => value.length < 3}
+    errorMessage={value => `Поле должно содержать минимум 3 символа`}
+  />,
+  document.querySelector("#app")
+)
