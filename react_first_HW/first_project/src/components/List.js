@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import Item from "./Item";
 
+<<<<<<< HEAD
 
 const do_list = [
   {taskName: "Согласовать презу", state: false, id:1, changeDate: new Date().toLocaleString().toString()},
@@ -63,6 +64,21 @@ class List extends React.Component {
 
   }
 
+=======
+const List = ({prop}) => {
+  const logger = () => {
+    alert("sdsads")
+  }
+  return (
+  <>
+    {prop.map((elem) => {
+      return(
+      <Item  handler={logger} key={elem.id} obj={elem}/>
+      )
+    })}
+  </>
+    )
+>>>>>>> b3393d915d33611f5496df5ba8c9c0de32f99d36
 }
 
 export default List;
