@@ -1,0 +1,141 @@
+/****************************************************************/
+/* COPYRIGHT (c) JSTSPC LP. 2021. ALL RIGHTS RESERVED.          */
+/*                                                              */
+/* AUTHORS:                                                     */
+/* CODE BY     Dmitry Space    <https://t.me/dmitryspace>       */
+/* DESIGN BY   Daniil Postnov  <https://t.me/daniilpostnov>     */
+/*                                                              */
+/* COPYING CODE AND ITS PARTS IS PROHIBITED.                    */
+/* КОПИРОВАНИЕ КОДА И ЕГО ЧАСТЕЙ ЗАПРЕЩЕНО.                     */
+/*                                                              */
+/* LICENSE: https://getscript.ru/pl/layout/12746/0/license.css  */
+/*                                                              */
+/****************************************************************/
+
+(()=>{
+
+if (window.PageChecker.isChatium) loadLessonScripts();
+else $(()=>{ loadLessonScripts(); });
+function loadLessonScripts(){setTimeout(()=>{
+   
+   // Формируем шапку урока
+   $(`
+      .gc-main-content > .container > .standard-page-content > .breadcrumb,
+      .gc-main-content > .page-full-block > .main-page-block > .container > .breadcrumbs
+   `).wrapAll('<div class="header-box" />');
+   $('.header-box').append($('.lesson-header-block'));
+   $('.header-box .lesson-header-block h2').parent().append($('.page-header .page-actions')); 
+   $(`.header-box .breadcrumb`).append('<li>'+$('.gc-main-content > .container > .standard-page-content > div > .page-header > h1').html()+'</li>'); 
+
+   // Выпадающее меню перемещаем в другую сторону
+   $('.header-box .dropdown-menu.pull-right').removeClass('pull-right').addClass('pull-left');
+   
+   $('.header-box').insertBefore($('.gc-main-content > .container, .main-page-block > .container').eq(0));
+
+   // Добавляем имя пользователя в блок задания и комментариев
+   $('.lesson-mission-wrapper .answer-form .user-profile-image, .lt-lesson-comment-block .new-comment .user-image').after(
+     '<div class="username">'+window.accountSafeUserName+'</div>'
+   );
+
+   // Ресайзим бейджики
+   $('.user-answer .title img[src*="/14x/"]').each((i,el)=> {
+    $(el).attr('src',$(el).attr('src').replace("/14x/","/16x16/"));
+   });
+
+   // Перемещаем дату коммента в другое место
+   $('.comment .comment-time > .value').each((i,el)=> {
+     let comment_title = $(el).parents('.comment').find('.title');
+     let comment_title_pl = $(comment_title).find('.pseudo-link').eq(0);
+     if($(comment_title_pl).length) $(comment_title_pl).before($(el));
+     else $(comment_title).append($(el));
+   });
+
+   // Добавляем заголовок к блоку комментариев, когда комментариев нет
+   if($('.lt-lesson-comment-block .new-comment').length) {
+     $('.lt-lesson-comment-block > .lt-block-wrapper > .container > .row > div:not(:has(.lesson-answers-title))')
+       .before('<div class="lesson-answers-title"><h3 style="margin-bottom: 20px;">Комментарии</h3></div>');
+   } else if(!$('.lt-lesson-comment-block .other-answers.answers-list > *').length) {
+     $('.lt-lesson-comment-block').remove();
+   }
+     
+
+   // Добавляем доп блок для стилизации чекбоксов и радиокнопок
+   setTimeout(()=>{
+    $('.custom-field.type-select input[type="radio"]').after('<'+'span class="tick-icon" />');
+    $('.custom-field.type-multi_select input[type="checkbox"]').after('<'+'span class="tick-icon" />');
+   });
+
+   // Отмечаем выбранный ответ в тестировании, если стоит опция "не показывать правильный ответ".
+   $(document).ajaxSend((e,xhr,settings) => {
+    if (settings.url == "/pl/teach/questionary-public/do-question-answer") {
+      let s = (new URLSearchParams(settings.data)).get("answerValue");
+      s !== null ? s : false;
+      if(s) $('.testing-widget .btn-send-variant').filter((i,el)=>{
+        return $(el).html().indexOf(s) > -1;
+      }).addClass('btn-answered');
+    }
+   });
+
+   // Изменяем отображание номеров вопросов тестирования
+   $(()=>{replaceQuestionNumberView()});
+   $(document).ajaxSuccess((e,xhr,settings) => {
+     if (settings.url.indexOf("/pl/teach/questionary-public/testing?id=") > -1) {
+       replaceQuestionNumberView()
+     }
+   });
+   function replaceQuestionNumberView(){
+     setTimeout(()=>{
+       $('.question-number').html((i,h)=>{
+         let parts = h.split(" из ");
+         let n1 = parts[0].replace(/\D+/g,'');
+         let n2 = parts[1].replace(/\D+/g,'');
+         return `${n1}<span>/${n2}</span>`;
+       });
+     })
+   }
+
+   // Убираем лишний символ из даты ответа
+   $('.lesson-mission-wrapper .answer-date .text-muted').each((i,el)=>{
+     $(el).html($(el).html().replace(' • ',''));
+   });
+
+   // Принимаем урок автоматически
+   let lessonMissionSkipInterval = setInterval(()=>{
+     if(typeof window.lessonMissionSkip != 'object' || typeof window.lessonMissionSkip.lessons != 'object') return false;
+     else if(
+         window.location.href.indexOf('/chatium') == -1 &&
+         window.location.href.indexOf('editMode=1') == -1
+     ) {
+       clearInterval(lessonMissionSkipInterval);
+       window.lessonId = typeof window.lessonId != "undefined" ? window.lessonId : parseInt(/id=(\d+)/gm.exec(window.location.href)[1]);
+       if(lessonMissionSkip.lessons.indexOf(window.lessonId) > -1) {
+         if(typeof window.lessonMissionSkip.hideMissionBlock != 'undefined' && window.lessonMissionSkip.hideMissionBlock === true) {
+           $('.lt-lesson-mission-block, nav.mode-selector .link[data-mode="mission"]').hide();
+         }
+         $.get("/pl/teach/control/lesson/webview?mode=mission&id="+window.lessonId, function(data){
+           if(!data.success) return false;
+           let pageDom = $('<xxx/>').append($.parseHTML(data.data.html));       
+           if (!$(pageDom).find('.self-answers .user-answer').length) {
+             sendFormThroughIframe("/pl/teach/control/lesson/webview?id="+window.lessonId, {
+               "LessonAnswer[answer_text]":'Просмотрено ✅',
+               "LessonAnswer[lesson_id]":window.lessonId,
+               "send-answer":"true",
+             });
+           }
+         });
+       }
+       function sendFormThroughIframe(url,formData) {
+         let iframe = $('<'+'iframe>', {name:'gagFrame',frameborder:0,border:0,width:0,height:0,style:'display:none'}).appendTo('body');
+         let form = $('<'+'form>', {action:url,method:'post',target:'gagFrame'}).appendTo('body');
+         $.each(formData, function (name, val) {
+           form.append('<'+'input type="hidden" name="'+name+'" value="'+val+'">');
+         });
+         form.submit();
+         setTimeout(function(){$(iframe).remove();$(form).remove()},1000);
+       }
+     }
+   }, 50);
+
+});};
+
+})();
