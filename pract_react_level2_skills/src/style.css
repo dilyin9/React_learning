@@ -1,0 +1,28 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+}
+#app {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+.title {
+  margin: 16px 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+.progressBarTitle {
+  margin: 7px 0;
+}
+.progressBar {
+  background: #CECECE;
+}
+.progressBarDone {
+  background: #000;
+  color: #fff;
+  text-align: right;
+  padding: 5px 10px;
+}

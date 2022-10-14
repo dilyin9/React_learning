@@ -1,0 +1,41 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+  color: #172b4d;
+}
+
+#app {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.sign-up-block {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.sign-up-block__label {
+  margin-left: 8px;
+}
+
+.sign-up-block__checkbox {
+  width: 16px;
+  height: 16px;
+}
+
+.form-input {
+  display: block;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid darkgray;
+  margin-top: 4px;
+}
+
+.form-label {
+  display: block;
+  margin-top: 8px;
+}

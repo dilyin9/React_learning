@@ -1,0 +1,50 @@
+/*ВСПОМНИМ УСЛОВИЕ ЗАДАЧИ
+Реализуйте блок с данными для авторизации. Если человек уже был зарегистрирован, то отображать только поле для заполнения логина. Иначе показывать также поля для ввода телефона и электронной почты.
+*/
+  
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+			isSignedUp: false
+    }
+  }
+
+  handleChecked(e) {
+  	this.setState({
+    	isSignedUp: e.target.checked
+    })
+  }
+  
+  render() {
+    return (
+      <div>
+        <h2>Пожалуйста, заполните анкетные данные для авторизации</h2>
+        <div className="sign-up-block">
+          <input type="checkbox"
+                 id="isSignedUp"
+                 className="sign-up-block__checkbox"
+                 onChange={e => this.handleChecked(e)}
+          ></input>
+          <label htmlFor="isSignedUp" className="sign-up-block__label">
+            Уже зарегистрирован
+          </label>
+        </div>
+        <label htmlFor="login" className="form-label">Login</label>
+        <input id="login" className="form-input"></input>
+        {
+        	!this.state.isSignedUp ?
+          <React.Fragment>
+            <label htmlFor="phone" className="form-label">Телефон</label>
+            <input id="phone" className="form-input"></input>
+            <label htmlFor="email" className="form-label">Email</label>
+            <input id="email" className="form-input"></input>
+          </React.Fragment>
+          : undefined
+        }
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#app"))

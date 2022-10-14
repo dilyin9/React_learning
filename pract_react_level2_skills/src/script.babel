@@ -1,0 +1,38 @@
+/*ВСПОМНИМ УСЛОВИЕ ЗАДАЧИ
+Даны несколько навыков и уровень их прокаченности в процентах. Отобразите бар, в котором закрашена область, пропорциональная числу процентов по каждому из навыков.
+*/
+  
+class Progress extends React.Component {
+	render() {
+  const {title, amount} = this.props
+  	return <React.Fragment>
+    	<h3 className="progressBarTitle">{title}</h3>
+      <div className="progressBar">
+        <div className="progressBarDone" style={{width: `${amount}%`}}>
+          {amount}%
+        </div>
+      </div>
+    </React.Fragment>
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <h2 className="title">My Skills</h2>
+        <Progress title="React" amount={35}/>
+        <Progress title="JavaScript" amount={68}/>
+        <Progress title="CSS" amount={55}/>
+      </div>
+    )
+  }
+}
+
+
+Progress.propTypes = {
+	title: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+}
+
+ReactDOM.render(<App />, document.querySelector("#app"))
