@@ -1,0 +1,119 @@
+/*ВСПОМНИМ УСЛОВИЕ ЗАДАЧИ
+Реализовать HOC (High Order Component) Draggable. Draggable должен быть компонентом, который, оборачивая другие компоненты, даёт им возможность перетаскивания их мышкой (Drag'n'Drop).
+*/
+  
+function Circle({color}) {
+	return (
+  	<div
+      className='circle'
+      style={{backgroundColor: color}}
+    />
+  );
+}
+
+function Triangle({color}) {
+	return (
+  	<div
+      className='triangle'
+      style={{borderBottomColor: color}}
+    />
+  )
+}
+
+class Draggable extends React.Component {
+  state = {
+    isDragging: false,
+    
+    prevDragX: 0,
+    prevDragY: 0,
+    
+    translateX: 0,
+    translateY: 0,
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+  }
+
+  handleMouseDown = ({ clientX, clientY }) => {
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mouseup', this.handleMouseUp);
+
+    this.setState({
+    	isDragging: true,
+      prevDragX: clientX,
+      prevDragY: clientY,
+    })
+  }
+
+  handleMouseMove = ({ clientX, clientY }) => {
+    const { isDragging } = this.state
+
+    if (!isDragging) {
+      return
+    }
+    
+    const diffX = clientX - this.state.prevDragX
+    const diffY = clientY - this.state.prevDragY
+    
+    this.setState({
+    	prevDragX: clientX,
+      prevDragY: clientY,
+      translateX: this.state.translateX + diffX,
+      translateY: this.state.translateY + diffY
+    });
+  };
+
+  handleMouseUp = () => {
+    window.removeEventListener('mousemove', this.handleMouseMove)
+    window.removeEventListener('mouseup', this.handleMouseUp)
+
+    this.setState({
+      isDragging: false
+    });
+  };
+
+  render() {
+    const { children } = this.props;
+    const { translateX, translateY, isDragging } = this.state;
+
+    return (
+      <div
+        onMouseDown={this.handleMouseDown}
+        style={{
+        	transform: `translate(${translateX}px, ${translateY}px)`,
+          cursor: isDragging ? 'grabbing' : 'grab',
+          opacity: isDragging ? 0.7 : 1
+        }}
+      >
+        {children}
+      </div>
+    )
+  }
+}
+
+class DraggablePlayground extends React.Component {
+
+  state = {
+  	colors: ['#EB5168', '#74E394', '#1A61F7', '#F5AF73', '#E26C5C']
+  }
+  
+  render() {
+    return (
+      <div className='container'>
+        {this.state.colors.map((color, i) => {
+          const Component = (i % 2 === 0)
+          	? Circle
+            : Triangle
+          
+          return <Draggable>
+            <Component key={i} color={color} />
+          </Draggable>
+        })}
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<DraggablePlayground />, document.querySelector("#app"))
