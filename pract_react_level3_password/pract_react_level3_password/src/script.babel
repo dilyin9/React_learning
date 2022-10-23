@@ -1,0 +1,85 @@
+/*ВСПОМНИМ УСЛОВИЕ ЗАДАЧИ
+Реализуйте компонент с двумя полями для ввода пароля. Если введенные пароли не совпадают или они слишком короткие (меньше 6 символов), то выдать соответсвующие сообщения.
+*/
+  
+class Input extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    	value: '',
+    }
+  }
+  
+  render() {
+  	const {
+    	placeholder,
+      onChange,
+      isPassword
+    } = this.props
+    
+    return (
+      <div>
+        <input
+          type={isPassword ? 'password' : 'text'}
+          className='input'
+          placeholder={placeholder}
+          value={this.state.value}
+          onChange={(e) => {
+          	this.setState({value: e.target.value})
+            if (onChange) {
+            	onChange(e.target.value)
+            }
+          }}
+        />
+      </div>
+    )
+  }
+}
+
+class CheckPasswords extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      password1: '',
+      password2: '',
+    }
+  }
+  
+  handleChange = (fieldName, value) => {
+  	this.setState({ [fieldName]: value }, this.checkPasswords)
+  }
+  
+  checkPasswords = () => {
+    const {password1, password2} = this.state
+    const message = (password1 !== password2)
+    ? 'Пароли не совпадают'
+    : password1.length < 6
+    	? 'Пароль должен быть не менее 6 символов'
+      : ''
+
+    this.setState({message})
+  };
+  
+  render() {
+    return (
+      <div>
+        <Input
+          placeholder={"Введите пароль"}
+          isPassword
+          onChange={value => this.handleChange('password1', value)}
+        />
+        <Input
+          placeholder={"Введите пароль повторно"}
+          isPassword
+          onChange={value => this.handleChange('password2', value)}
+        />
+        <div className='message'>{this.state.message}</div>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(
+	<CheckPasswords />,
+  document.querySelector("#app")
+)
