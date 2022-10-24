@@ -1,6 +1,7 @@
+
 .App {
   text-align: center;
-  background: #0067A3;
+
 }
 
 .header {
@@ -63,8 +64,21 @@
 }
 .main_body {
   background: #0079BF;
+  height: calc(100vh - 55px);
+  display: flex;
 }
 
 .block {
   background: #EBECF0;
+  border: solid 1px #EBECF0;
+  border-radius: 10px;
+  margin: 20px 0 0 19px;
+  width: 282px;
+  height: fit-content;
+}
+
+.block_text {
+  color: #000000;
+  font-size: 18px;
+  line-height: 21px;
 }
