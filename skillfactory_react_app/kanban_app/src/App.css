@@ -11,6 +11,13 @@
   justify-content: space-between;
   align-items: center;
 }
+.footer{
+  height: 55px;
+  background: #0067A3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .app_text {
   font-family: 'Roboto';
@@ -64,8 +71,9 @@
 }
 .main_body {
   background: #0079BF;
-  height: calc(100vh - 55px);
+  height: calc(100vh - 110px);
   display: flex;
+  justify-content: space-around;
 }
 
 .block {
@@ -73,19 +81,24 @@
   background: #EBECF0;
   border: solid 1px #EBECF0;
   border-radius: 10px;
-  margin: 20px 0 0 19px;
-  width: 282px;
+  margin: 20px 0 10px 0;
+  width: 23%;
+  max-height: -webkit-fill-available;
   height: fit-content;
+}
+.block_content {
+  width: 100%;
+  display: grid;
 }
 
 .block_text {
   text-align: start;
-  width: inherit;
   margin: unset;
-  padding: 12px;
+  padding: 12px 12px 0 12px;
   color: #000000;
   font-size: 18px;
   line-height: 21px;
+  overflow-y: auto;
 }
 .block_task {
   border-radius: 5px;
@@ -95,4 +108,24 @@
   max-height: 57px;
   margin: 15px 0;
   list-style-type: none;
+}
+
+.block_add_item {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    margin-left: 12px;
+}
+.block_add_item_button {
+  background-image: url('./public/images/add_task.png');
+  background-size: 14px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  font-size: 18px;
+  line-height: 21px;
+  padding-left: 20px;
+  border: none;
+  font-family: 'Roboto';
+  color: #5E6C84;
+  cursor: pointer;
 }
