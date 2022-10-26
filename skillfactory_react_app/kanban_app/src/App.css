@@ -132,20 +132,21 @@
 }
 
 .login_popup {
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
 }
 .form_box {
   display: flex;
   justify-content: center;
-  width: 15%;
-  height: 40%;
+  width:fit-content;
+  height: 220px;
+  padding: 0 10px;
   margin-top: 7vh;
   opacity: 80%;
   background: rgba(94,108,132,.4);
   border-radius: 8px;
-  box-shadow: 8px 8px 8px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 form {
   display: flex;
@@ -164,7 +165,20 @@ form {
   font-size: 20px;
 } 
 .popup_input {
+  margin: auto;
+  width: 80%;
   border: 1px solid lightgrey;
   font-size: 16px;
   border-radius: 8px;
+  height: 1.5em;
+}
+
+.popup_submit {
+  cursor: pointer;
+  color: #fff;
+  width: 75%;
+  margin: 0 auto 10px;
+  border-radius: 10px;
+  border: 1px solid lightgrey;
+  background-color: #5E6C84;
 }
