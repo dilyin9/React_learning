@@ -1,4 +1,5 @@
-import add_button from '../../public/images/add_task.png'
+
+import React from 'react';
 
 export default function Block({name,type}) {
   return (

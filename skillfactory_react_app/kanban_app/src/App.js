@@ -1,16 +1,15 @@
 import './App.css';
-import Body from './components/Body/Body';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Login from './components/Log_In/Login.js';
+import Main from './components/Main/Main.js';
+import {Route, Routes} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Body />
-      <Footer />
-    </div>
-  );
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="main" element={<Main />}/>
+      </Routes>
+  )
 }
 
 export default App;

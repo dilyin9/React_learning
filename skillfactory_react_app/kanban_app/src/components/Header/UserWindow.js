@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import React from 'react';
 import Avatar from 'react-avatar';
 import user_avatar from '../../public/images/user_avatar.png';
 import caret_span from '../../public/images/caretSpanDown.png';
