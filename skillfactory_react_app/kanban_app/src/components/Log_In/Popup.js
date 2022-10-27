@@ -7,6 +7,7 @@ export default function Popup({isShown,formSubmitted}) {
     formSubmitted(userName);
   }
   return(
+    isShown &&(
     <div className="login_popup">
       <div className="form_box">
         <form onSubmit={handleChange}>
@@ -19,6 +20,7 @@ export default function Popup({isShown,formSubmitted}) {
         </form>
       </div>
     </div>
+  )
   )
 }
 
