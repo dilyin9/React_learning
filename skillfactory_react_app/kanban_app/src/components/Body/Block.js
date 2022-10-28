@@ -9,12 +9,7 @@ export default function Block({name,type}) {
           <ul className="app_text block_text">
             {name}
             <li className="block_task">sdgjg</li>
-            <li className="block_task">sdgjg</li>
-            <li className="block_task">sdgjg</li>
-            <li className="block_task">sdgjg</li>
-            <li className="block_task">sdgjg</li>
-            <li className="block_task">sdgjg</li>
-            <li className="block_task">sdgjg</li>
+            
           </ul>
           {type==="WITH_ADD" &&
           <div className="app_text block_add_item">
