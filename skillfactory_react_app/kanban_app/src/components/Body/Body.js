@@ -1,27 +1,13 @@
 import Block from "./Block"
 import React, { useEffect, useState } from 'react';
 
-export default function Body({userData}) {
-  const [blocksData, setBlocksData] = useState('');
-  useEffect(() => {
-      const structure = {
-        backlog:null, ready: null, inProgress: null, finished: null
-      }
-      if (userData.data) {
-        for (let item of userData.data) {
-          console.log(item);
-          structure[item.title] = item.data;
-        }
-      }
-      setBlocksData(structure);
-  }, []);
-  console.log(blocksData);
+export default function Body({userData, handleBacklog}) {
   return (
     <div className="main_body">
-       <Block name="Backlog" type="WITH_ADD" />
-       <Block name="Ready" />
-       <Block name="In Progress" type="WITH_ADD"/>
-       <Block name="Finished" type="WITH_ADD"/>
+       <Block name="Backlog" type='backlog' data ={userData.data[0]} addNewBackLog={handleBacklog} />
+       <Block name="Ready"  type='ready' data ={userData.data[1]} />
+       <Block name="In Progress"  type='inPrpgress' data ={userData.data[2]} />
+       <Block name="Finished"  type='finished' data ={userData.data[3]} />
     </div>
   )
 }

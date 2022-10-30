@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 export default function Login() {
   const [isShown, setIsShown] = useState(false);
-  const [isActive, setIsActive] = useState(JSON.pares(localStorage.getItem('isActive')) || false);
+  const [isActive, setIsActive] = useState(JSON.parse(localStorage.getItem('isActive')) || false);
 
   useEffect(() => {
     setIsShown(!isActive)
@@ -18,7 +18,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     const newUser = {
       user_name: e,
-      data: []
+      data: [{title:'backlog', tasks:[]},{title:'ready', tasks:[]},{title:'inProgress', tasks:[]},{title:'fifnished', tasks:[]}]
     }
     setIsActive(true);
     localStorage.setItem('isActive', JSON.stringify(true));

@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Body from '../Body/Body';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 export default function Main() {
-  const [userData, setUserData] = useState('')
-
-  useEffect(() => {
-    let user = JSON.parse(localStorage.getItem('active_user'));
-    setUserData(JSON.parse(localStorage.getItem(user)))
-  }, [])
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem(JSON.parse(localStorage.getItem('active_user'))))
+  )
+  const handleBacklog = (obj) => {
+    console.log(userData)
+    let newData = [...userData.data]
+    newData[0].tasks = obj;
+    setUserData({...userData, data: newData})
+  }
   return (
     <div className="App">
       <Header />
-      <Body userData={userData}/>
+      <Body userData={userData} handleBacklog={handleBacklog} />
       <Footer userData={userData}/>
     </div>
   );

@@ -93,6 +93,8 @@
 }
 
 .block_text {
+  display: flex;
+  flex-direction: column;
   text-align: start;
   margin: unset;
   padding: 12px 12px 0 12px;
@@ -102,6 +104,7 @@
   overflow-y: auto;
 }
 .block_task {
+  min-height: 22px;
   border-radius: 5px;
   overflow: hidden;
   padding: 7px;
@@ -110,25 +113,37 @@
   margin: 15px 0;
   list-style-type: none;
 }
-
+.added_task {
+  border: solid 1px;
+}
 .block_add_item {
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     align-content: center;
     margin-left: 12px;
+}
+.button {
+  font-family: 'Roboto';
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 21px;
+}
+.block_submit_item {
+  height: 30px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  background: #0079BF;
 }
 .block_add_item_button {
   background-image: url('./public/images/add_task.png');
   background-size: 14px;
   background-position: left center;
   background-repeat: no-repeat;
-  font-size: 18px;
-  line-height: 21px;
   padding-left: 20px;
   border: none;
-  font-family: 'Roboto';
   color: #5E6C84;
-  cursor: pointer;
 }
 
 .login_popup {
