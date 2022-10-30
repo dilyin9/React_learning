@@ -36,7 +36,7 @@ export default function Block({name, data, type, addNewBackLog}) {
           <ul className="app_text block_text">
             {name}
            {data.tasks.map((task, index) => (
-              <input type="text" key={index} className="block_task" value={task.name} readonly/>
+              <input type="text" key={index} className="block_task" value={task.name} readOnly/>
             ))
             }
             {addMode &&
