@@ -107,10 +107,10 @@
   min-height: 22px;
   border-radius: 5px;
   overflow: hidden;
-  padding: 7px;
+  padding-right: 7px;
   background: #fff;
   max-height: 57px;
-  margin: 15px 0;
+  margin: 7px 0;
   list-style-type: none;
 }
 .added_task {
@@ -196,4 +196,29 @@ form {
   border-radius: 10px;
   border: 1px solid lightgrey;
   background-color: #5E6C84;
+}
+.dropdown_container {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown_selector {
+  display: inline-flex;
+  justify-content: flex-end;
+  height: 35px;
+  border-radius: 5px;
+  background: #fff;
+  margin-bottom: 7px; 
+}
+.dropdown_selector_button {
+  align-self: center;
+  margin-right: 7px;
+  cursor: pointer;
+}
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  max-height: 100px;
+}
+.dropdown_item {
+  max-height: 50px;
 }

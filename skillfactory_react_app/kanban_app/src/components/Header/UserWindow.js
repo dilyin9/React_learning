@@ -13,7 +13,7 @@ export default function UserWindow() {
     <div className="user_info">
             <Avatar color='#FFFFFF' size="40" round={true} src={user_avatar}/>
             <span className='user_span' onClick={() => {setIcon(icon === caret_span ? caret_span_up: caret_span)}}>
-              <img src={icon}></img>
+              <img width="18px" height="12px" src={icon}></img>
             </span>
     </div>
     {icon === caret_span_up && 
