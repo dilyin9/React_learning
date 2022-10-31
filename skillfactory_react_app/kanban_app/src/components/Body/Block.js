@@ -28,6 +28,7 @@ export default function Block({name, data, type, addNewBackLog}) {
       setCurrentButoon('add');
       setAddMode(false);
       addNewBackLogTask();
+      setNewValue('');
     }
   }
   return (
