@@ -13,6 +13,9 @@ export default function Dropdown({type, fullData}) {
       setExpand(!expand)
     }
   }
+  const taskSelected = (e, index) => {
+    console.log(index)
+  }
   return(
     <div className="dropdown_container">
       <div className="dropdown_selector">
@@ -23,7 +26,7 @@ export default function Dropdown({type, fullData}) {
       {expand &&
         <div className="dropdown">
         { list.map((item, index) => (
-          <div key={index} className="dropdown_item">
+          <div key={index} className="dropdown_item" onClick={(index) => taskSelected(index)}>
             <label>{item.name}</label>
           </div>
         ))
