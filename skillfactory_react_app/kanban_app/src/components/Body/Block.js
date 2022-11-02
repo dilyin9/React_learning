@@ -1,15 +1,16 @@
 
-import React, { useEffect, useState } from 'react';
-import Dropdown from './Dropdown';
+import React, { useState } from 'react';
 
-export default function Block({name, data, type, addNewBackLog, fullData}) {
+export default function Block({name, data, type, addNewBackLog}) {
   const [currentButton, setCurrentButoon] = useState('add')
   const [addMode, setAddMode] = useState(false)
   const [newValue, setNewValue] = useState('')
-
   const handleAddClick = () => {
+    switch(type) {
+      case 'backlog':
         setCurrentButoon('submit');
         setAddMode(true);
+    }
   }
   const addNewBackLogTask =() => {
       if (newValue.length) {
@@ -28,6 +29,7 @@ export default function Block({name, data, type, addNewBackLog, fullData}) {
       setAddMode(false);
       addNewBackLogTask();
       setNewValue('');
+      
     }
   }
   return (
@@ -39,12 +41,9 @@ export default function Block({name, data, type, addNewBackLog, fullData}) {
               <input type="text" key={index} className="block_task" value={task.name} readOnly/>
             ))
             }
-            {addMode && type==='backlog' &&
+            {addMode &&
               <input onChange={(e) => setNewValue(e.target.value)} type="text" className="block_task added_task" value={newValue}/>
-            }
-            { addMode && type !== 'backlog' &&
-              <Dropdown fullData={fullData} type={type}/>
-            }
+            } 
           </ul>
           <div className="app_text block_add_item">
            <button onClick={handleAddClick} style={{display: (currentButton ==='add')? '': 'none'}} className='block_add_item_button button'>Add card</button>
