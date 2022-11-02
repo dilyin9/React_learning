@@ -11,17 +11,15 @@ export default function Main() {
   useEffect(()=> {
     localStorage.setItem(active_user, JSON.stringify(userData))
   }, [userData])
-  const handleBacklog = (obj) => {
-    console.log(userData)
-    let newData = [...userData.data]
-    newData[0].tasks = obj;
+  const handleUpdate = (newData) => {
+    console.log(newData)
     setUserData({...userData, data: newData})
 
   }
   return (
     <div className="App">
       <Header />
-      <Body userData={userData} handleBacklog={handleBacklog} />
+      <Body userData={userData} handleUpdate={handleUpdate} />
       <Footer userData={userData}/>
     </div>
   );
