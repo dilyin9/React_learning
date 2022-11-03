@@ -1,7 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useDebugValue, useEffect, useState } from 'react';
 import caret_span from '../../public/images/caretSpanDown_black.png'; 
 import DropdownList from './DropdownList';
+import {routeToTask} from './openTask';
 
 export default function Block({name, data, type, fullData, index, handleUpdate}) {
   const [currentButton, setCurrentButoon] = useState('add')
@@ -16,7 +17,23 @@ export default function Block({name, data, type, fullData, index, handleUpdate})
   const handleAddClick = () => {
         setCurrentButoon('submit');
         setAddMode(true);
+        if (type !== 'backlog') {
+            let length = fullData.data[index-1].tasks.length
+            setDisableButton(!length)
+        }
+        
+        
   }
+  useEffect(() => {
+    setEditableIndex(null)
+    setAddMode(false)
+    setNewValue('')
+    setExpandDropdown(false)
+    setDropDownSelectedLabel('')
+    setDisableButton(false)
+    setCurrentButoon('add');
+
+  }, [fullData])
 
   const updateData = () => {
     if (type === 'backlog') {
@@ -26,10 +43,11 @@ export default function Block({name, data, type, fullData, index, handleUpdate})
       if (newValue.length) {
         let newTask = {
           name: newValue,
-          description: ''
+          description: '',
+          id: Math.floor(Math.random()*(1000000 - 0 + 1)) + 0
         }
         let newData = [...fullData.data]
-        let newObject = newData[index].tasks.push(newTask)
+        newData[index].tasks.push(newTask)
         handleUpdate(newData);
       }
     }
@@ -50,7 +68,6 @@ export default function Block({name, data, type, fullData, index, handleUpdate})
   }
 
   const loadDropdownList = () => {
-    console.log(fullData.data)
       let backlogList = fullData.data[index-1].tasks
       setDropdownList(backlogList)
       setExpandDropdown(!expandDropdown) 
@@ -67,31 +84,32 @@ export default function Block({name, data, type, fullData, index, handleUpdate})
           <ul className="app_text block_text">
             {name}
            {data.tasks.map((task, index) => (
-              <input type="text" key={index} className="block_task" value={task.name} readOnly/>
+              <div key={index} className='block_task' onClick={() => routeToTask(index)}>
+                <span className='block_task_text'>{task.name}</span>
+              </div>
+              //<input type="text" key={index} className="block_task" value={task.name} readOnly/>
             ))
             }
             {addMode && type === 'backlog' &&
-              <input onChange={(e) => setNewValue(e.target.value)} type="text" className="block_task added_task" value={newValue}/>
+              <input onChange={(e) => setNewValue(e.target.value)} type="text" className="added_task block_text" value={newValue}/>
             }
             {addMode && type !== 'backlog' &&
-            //<Dropdown fullData={fullData} type = {type} />
               <div className="dropdown_container">
               
                 <div className="dropdown_selector">
-                  <label>{dropDownSelectedLabel}</label>
+                  <label className='block_task_text'>{dropDownSelectedLabel}</label>
                   <span className='dropdown_selector_button' onClick={loadDropdownList}>
                     <img src={caret_span}></img>
                   </span>
                   </div>
-                {expandDropdown &&
-                  <div className="dropdown">
-                      <ul style={{padding:"0"}}>
-                      {dropdownList.map((item, index) => (
+                {expandDropdown && 
+                  <div className='added_container'>
+                    {
+                      dropdownList.map((item, index) => (
                               <DropdownList dropDownSelected={dropDownSelected} key={index} item={item} index={index}/>  
-                      ))  
-                      }
-                      </ul>
-                  </div>
+                      )) 
+                    }
+                  </div> 
                 }
               </div>
             } 
