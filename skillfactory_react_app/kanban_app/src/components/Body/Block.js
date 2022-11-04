@@ -2,7 +2,7 @@
 import React, { useDebugValue, useEffect, useState } from 'react';
 import caret_span from '../../public/images/caretSpanDown_black.png'; 
 import DropdownList from './DropdownList';
-import {routeToTask} from './openTask';
+import { useNavigate } from 'react-router-dom';
 
 export default function Block({name, data, type, fullData, index, handleUpdate}) {
   const [currentButton, setCurrentButoon] = useState('add')
@@ -13,7 +13,12 @@ export default function Block({name, data, type, fullData, index, handleUpdate})
   const [dropDownSelectedLabel, setDropDownSelectedLabel] = useState('')
   const [editableIndex, setEditableIndex] = useState(null)
   const [disableButton, setDisableButton] = useState(false)
-
+  let navigate = useNavigate()
+  
+  const routeToTask = (id) => {
+    navigate(`/main/${id}`);
+  }
+  
   const handleAddClick = () => {
         setCurrentButoon('submit');
         setAddMode(true);
@@ -84,7 +89,7 @@ export default function Block({name, data, type, fullData, index, handleUpdate})
           <ul className="app_text block_text">
             {name}
            {data.tasks.map((task, index) => (
-              <div key={index} className='block_task' onClick={() => routeToTask(index)}>
+              <div key={index} className='block_task' onClick={() => routeToTask(task.id ? task.id : null)}>
                 <span className='block_task_text'>{task.name}</span>
               </div>
               //<input type="text" key={index} className="block_task" value={task.name} readOnly/>

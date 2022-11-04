@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Body from '../Body/Body';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { Route, Routes } from "react-router-dom";
+import TaskInfo from "../Body/TaskInfo";
 
 export default function Main() {
   const active_user = JSON.parse(localStorage.getItem('active_user'));
@@ -19,7 +21,10 @@ export default function Main() {
   return (
     <div className="App">
       <Header />
-      <Body userData={userData} handleUpdate={handleUpdate} />
+      <Routes>
+        <Route path="desk" element={<Body userData={userData} handleUpdate={handleUpdate}/>} />
+        <Route path=":id" element={<TaskInfo />} />
+      </Routes>
       <Footer userData={userData}/>
     </div>
   );

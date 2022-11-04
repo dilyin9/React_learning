@@ -10,7 +10,7 @@ export default function Login() {
   useEffect(() => {
     setIsShown(!isActive)
     if (isActive) {
-      navigate('main');
+      navigate('main/desk');
     }
   }, [isActive]);
 
@@ -24,7 +24,7 @@ export default function Login() {
     localStorage.setItem('isActive', JSON.stringify(true));
     localStorage.setItem('active_user', JSON.stringify(newUser.user_name));
     localStorage.setItem(newUser.user_name, JSON.stringify(newUser));
-    navigate('main');
+    navigate('main/desk');
   }
   return (
     <div className="login">
