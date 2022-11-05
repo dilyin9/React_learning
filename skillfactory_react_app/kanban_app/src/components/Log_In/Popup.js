@@ -11,7 +11,7 @@ export default function Popup({isShown,formSubmitted}) {
     <div className="login_popup">
       <div className="form_box">
         <form onSubmit={handleChange}>
-          <h2 className="app_text second_header_text">Sign In</h2>
+          <h3 className="app_text second_header_text">Sign In</h3>
           <label className="app_text popup_text">Login</label>
           <br></br>
           <input onChange={(e) => {setUserName(e.target.value)}} className="popup_text popup_input" placeholder="username" value={userName}></input>

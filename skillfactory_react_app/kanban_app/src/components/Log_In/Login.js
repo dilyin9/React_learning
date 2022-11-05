@@ -16,15 +16,17 @@ export default function Login() {
 
   const navigate = useNavigate()
   const handleSubmit = (e) => {
+    if (!localStorage.getItem(e)){
     const newUser = {
       user_name: e,
       data: [{title:'backlog', tasks:[]},{title:'ready', tasks:[]},{title:'inProgress', tasks:[]},{title:'fifnished', tasks:[]}]
     }
     setIsActive(true);
-    localStorage.setItem('isActive', JSON.stringify(true));
-    localStorage.setItem('active_user', JSON.stringify(newUser.user_name));
     localStorage.setItem(newUser.user_name, JSON.stringify(newUser));
-    navigate('main/desk');
+  }
+  localStorage.setItem('isActive', JSON.stringify(true));
+  localStorage.setItem('active_user', JSON.stringify(e));
+  navigate('main/desk');
   }
   return (
     <div className="login">

@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 import Item from "./Item";
 
-<<<<<<< HEAD
+
 
 const do_list = [
   {taskName: "Согласовать презу", state: false, id:1, changeDate: new Date().toLocaleString().toString()},

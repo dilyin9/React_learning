@@ -23,7 +23,7 @@ export default function Main() {
       <Header />
       <Routes>
         <Route path="desk" element={<Body userData={userData} handleUpdate={handleUpdate}/>} />
-        <Route path=":id" element={<TaskInfo />} />
+        <Route path=":id" element={<TaskInfo userData={userData}  handleUpdate={handleUpdate}/>} />
       </Routes>
       <Footer userData={userData}/>
     </div>
